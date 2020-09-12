@@ -34,7 +34,7 @@ def clear_comment(text):
 
 	# Split based on words, remove punctuation/strange characters
 	cleared_text = re.compile(r'\W+', re.UNICODE).split(text.lower())
-	# Remove digits ???
+	# Remove digits 
 	text_without_digits = [re.sub('[\d_]', '', t) for t in cleared_text]
 	# Remove empty strings from list of text
 	text_without_empty_strings = [t for t in text_without_digits if t != '']
@@ -98,11 +98,10 @@ if __name__ == "__main__":
 	data_with_clear_comments = filtered_data.map(lambda x: (x[1], clear_comment(x[2])))
 	# Create unique ID for each document -> output format: (doc_id, (category, comment))
 	data_with_id = data_with_clear_comments.zipWithIndex().map(lambda x: (x[1], x[0]))
-	data = data_with_id.filter(lambda x: len(x[1][1]) != 0).cache() #cache needed??????
+	data = data_with_id.filter(lambda x: len(x[1][1]) != 0).cache() 
 
 
 	# Get words in all documents with k most common words
-	#na dokimasw me kai xwris distinct, epishs tha bgalw apo edw to index, kai na dokimasw uinique words apo kathe document h oxi
 	k = 1000 #20000
 	words = data.flatMap(lambda x: [(y,1) for y in get_unique_words_in_each_text(x[1][1])]). \
 		reduceByKey(lambda x, y: x + y). \
@@ -116,7 +115,6 @@ if __name__ == "__main__":
 	vocab = words.map(lambda x: x[0]). \
 		collect() #take()
 
-	#print('\n\n\n ', vocab[0:20])
 	print('\n\n\nVocabulary size:', len(vocab))
 
 	# Broadcast vocabulary to all executors
@@ -152,10 +150,6 @@ if __name__ == "__main__":
 	word_tf = word_tf.reduceByKey(lambda x, y : (x[0] + y[0], x[1]) )
 	# output format: (word, (category, docId, tf))
 	word_tf = word_tf.map(lambda x: (x[0][0], (x[0][1], x[0][2], x[1][0]/len(x[1][1]))) ).cache()
-	# output format: (word, (category, docId, tf))
-	#word_tf = word_tf.map(lambda x: (x[0][0], (x[0][1], x[0][2] , x[1])) ).cache()
-
-	#print('\n\n\n ', word_tf.count(), '\n\n\n')
 
 	### Compute tfidf metric -> output format: (word, ((category, docId, tf), (idf, word_index))
 	words = word_tf.join(word_idf)
@@ -171,20 +165,13 @@ if __name__ == "__main__":
 	# output format: (category, sorted_list with word_index as key and tfidf metric value as value)
 	words = words.map(lambda x : (x[0][0], sorted(x[1], key = lambda y : y[0])))
 
-	# Use sparse vector when key is word_index and value is tfidf metric
+	# Use sparse vector where key is word_index and value is tfidf metric
 	data = words.map(lambda x : (x[0], SparseVector(k, [y[0] for y in x[1]], [y[1] for y in x[1]])))
 
-	# Print first 5 lines of rdd
-	#res = data.take(5)
-	#for r in res:
-	#	print(r,'\n')
 
-
-	#5
 	# Add colun names with schema
 	df = data.toDF(['category', 'features'])
 
-	#6
 	# Transform string labels in integers
 	stringIndexer = StringIndexer(inputCol='category', outputCol='label')
 	stringIndexer.setHandleInvalid('skip')
@@ -211,7 +198,6 @@ if __name__ == "__main__":
 	# Get unique categories
 	unique_cat = train_set.select("category").distinct().collect()
 
-	#7
 	# input layer:k size, output layer:unique_cat size
 	layers = [k, 200, len(unique_cat)]
 
