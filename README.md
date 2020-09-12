@@ -15,7 +15,7 @@ The dataset is the [Customer Complaint Database](https://catalog.data.gov/datase
 
 ## Main Goal
 
-The goal of this project is to use [Spark](https://spark.apache.org/) to implement a [Perceptron Classifier](https://en.wikipedia.org/wiki/Multilayer_perceptron) and [HDFS](https://hadoop.apache.org/docs/r1.2.1/hdfs_design.html) using the [TFIDF metric](https://en.wikipedia.org/wiki/Tf%E2%80%93idf). Both RDDs and Spark Dataframe API were utilized.
+The goal of this project is to use [Spark](https://spark.apache.org/) and [HDFS](https://hadoop.apache.org/docs/r1.2.1/hdfs_design.html) to implement a [Perceptron Classifier](https://en.wikipedia.org/wiki/Multilayer_perceptron) using the [TFIDF metric](https://en.wikipedia.org/wiki/Tf%E2%80%93idf). Both RDDs and Spark Dataframe API were utilized.
 
 ## Requirements
 - nltk
