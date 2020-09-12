@@ -40,13 +40,13 @@ spark-submit mlp.py
 ```
 
 
-### Algorithm
+## Algorithm
 
 - Clean the data
 - Keep k most common words in all comments
-- Remove less ofter categories
+- Remove less often categories
 - Compute TFIDF metric for each word in the comments 
-- Use SparseVector where key is word_index and value is tfidf metric
+- Use SparseVector where key is word_index and value is TFIDF metric
 - Transform string labels (categories) in integers
 - Split dataset in train and test set (stratified split)
 - Train a Multilayer Perceptron model (fit)
