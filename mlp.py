@@ -86,7 +86,7 @@ if __name__ == "__main__":
 	sc = spark.sparkContext
 
 	# Load data
-	data = sc.textFile("hdfs://master:9000/customer_complaints.csv")
+	data = sc.textFile("hdfs://master:9000/customer_complaints.csv") #("../data/customer_complaints.csv") #
 	# Filter the data: keep lines that have 3 columns
 	data = data.filter(lambda x: len(x.split(',')) == 3)
 	# Filter the data: keep strings that start with '201'
