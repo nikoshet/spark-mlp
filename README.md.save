@@ -1,0 +1,19 @@
+# Multilayer Perceptron Implementation With Spark And Python
+
+## Dataset
+
+The dataset is the [Consumer Complaint Database](https://catalog.data.gov/dataset/consumer-complaint-database). It includes complaints of customers for some financial products and services. The file (.csv) is comma-delimited.
+
+```
+### customer_complaints.csv format:
+"""
+0 <- date %Y-%m-%d
+1 <- category
+2 <- comment
+"""
+```
+
+## Main Goal
+
+The goal of this project is to use Spark/MapReduce to implement a [Perceptron Classifier](https://en.wikipedia.org/wiki/Multilayer_perceptron) by using the [TFIDF metric]()https://en.wikipedia.org/wiki/Tf%E2%80%93idf
+

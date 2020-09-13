@@ -49,5 +49,5 @@ spark-submit mlp.py
 - Use SparseVector where key is word_index and value is TFIDF metric
 - Transform string labels (categories) in integers
 - Split dataset in train and test set (stratified split)
-- Train a Multilayer Perceptron model (fit)
-- Compute accuracy of model on test set (transform)
+- Train a Multilayer Perceptron model
+- Compute accuracy of model on test set
