@@ -34,12 +34,12 @@ def clear_comment(text):
 
 	# Split based on words, remove punctuation/strange characters
 	cleared_text = re.compile(r'\W+', re.UNICODE).split(text.lower())
-	# Remove digits 
+	# Remove digits
 	text_without_digits = [re.sub('[\d_]', '', t) for t in cleared_text]
 	# Remove empty strings from list of text
 	text_without_empty_strings = [t for t in text_without_digits if t != '']
-	# Remove stopwords
-	text_without_stopwords = [word for word in text_without_empty_strings if word not in eng_stopwords]
+	# Remove stopwords and words that have length < 2
+	text_without_stopwords = [word for word in text_without_empty_strings if word not in eng_stopwords and len(word) > 1]
 	# Remove words that start with 'xx'
 	text = [word for word in text_without_stopwords if not word.startswith('xx')]
 	return tuple(text)
