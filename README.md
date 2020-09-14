@@ -19,6 +19,7 @@ The goal of this project is to use [Spark](https://spark.apache.org/) and [HDFS]
 
 ## Requirements
 - nltk
+- pyspark
 
 ## Usage
 
